@@ -42,6 +42,10 @@ class EconetClimate : public climate::Climate, public Component, public EconetCl
     std::transform(keys.begin(), keys.end(), values.begin(), std::inserter(custom_fan_modes_, custom_fan_modes_.end()),
                    [](uint8_t k, const std::string &v) { return std::make_pair(k, v); });
   }
+  void set_current_humidity_id(const std::string &current_humidity_id) { current_humidity_id_ = current_humidity_id; }
+  void set_target_dehumidification_level_id(const std::string &target_dehumidification_level_id) {
+    target_dehumidification_level_id_ = target_dehumidification_level_id;
+  }
 
  protected:
   std::string current_temperature_id_{""};
@@ -59,6 +63,8 @@ class EconetClimate : public climate::Climate, public Component, public EconetCl
   std::map<uint8_t, climate::ClimateMode> modes_;
   std::map<uint8_t, std::string> custom_presets_;
   std::map<uint8_t, std::string> custom_fan_modes_;
+  std::string current_humidity_id_{""};
+  std::string target_dehumidification_level_id_{""};
   void control(const climate::ClimateCall &call) override;
   climate::ClimateTraits traits() override;
 };

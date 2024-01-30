@@ -13,16 +13,17 @@ substitutions:
   econet_update_interval: 30s
   econet_alarm_update_interval: 30s
   econet_alarm_history_update_interval: 60s
+  wifi_module_address: "0x340"
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
   comment: ${device_description}
-  min_version: "2023.8.0" # This version introduced crc16 helper functions which are now used by esphome-econet
+  min_version: "2023.12.0" # This version introduced climate humidity which is now used by esphome-econet
   platform: $platform
   board: $board
   project:
     name: "esphome-econet.esphome-econet"
-    version: v1.8.0
+    version: v1.15.1
 preferences:
   flash_write_interval: "24h"
 wifi:
@@ -74,7 +75,7 @@ econet:
     1: ${econet_alarm_update_interval}
     2: ${econet_alarm_history_update_interval}
     3: ${econet_alarm_history_update_interval}
-  src_address: 0x340
+  src_address: ${wifi_module_address}
 sensor:
   - platform: econet
     name: "Active Alerts"

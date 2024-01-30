@@ -3,12 +3,14 @@ substitutions:
   name: "econet-hvac"
   friendly_name: "Rheem HVAC"
   device_description: "Rheem HVAC"
+  thermostat_address: "0x380"
+  wifi_module_address: "0x340"
 
 packages:
   econet: !include econet_base.yaml
 
 econet:
-  dst_address: 0x380
+  dst_address: ${thermostat_address}
 
 climate:
   - platform: econet
@@ -18,7 +20,9 @@ climate:
       min_temperature: "10"
       max_temperature: "32.2222"
       temperature_step: 1.0f
-    current_temperature_datapoint: SPT_STAT
+      min_humidity: 10
+      max_humidity: 80
+    current_temperature_datapoint: SPT
     target_temperature_low_datapoint: HEATSETP
     target_temperature_high_datapoint: COOLSETP
     mode_datapoint: STATMODE
@@ -38,11 +42,14 @@ climate:
       3: "Speed 3 (Medium)"
       4: "Speed 4 (Medium High)"
       5: "Speed 5 (High)"
+    current_humidity_datapoint: RELH7005
+    target_dehumidification_level_datapoint: DHUMSETP
 
 sensor:
   - platform: econet
     name: "Airhandler CFM"
     id: airhandler_cfm
+    icon: "mdi:fan"
     sensor_datapoint: F_ACTCFM
     state_class: "measurement"
     entity_category: "diagnostic"
@@ -50,6 +57,7 @@ sensor:
       - delta: 9.9
   - platform: econet
     name: "Airhandler RPM"
+    icon: "mdi:fan"
     id: airhandler_rpm
     sensor_datapoint: F_ACTRPM
     state_class: "measurement"
@@ -59,6 +67,7 @@ sensor:
   - platform: econet
     name: "Static Pressure"
     id: static_pressure
+    icon: "mdi:air-filter"
     sensor_datapoint: STATIC_P
     accuracy_decimals: 6
     unit_of_measurement: "in"
@@ -79,22 +88,24 @@ text_sensor:
   - platform: econet
     name: "Operating Mode"
     id: operating_mode
+    icon: "mdi:hvac"
     sensor_datapoint: HVACMODE
   - platform: econet
     name: "Auto Mode"
     id: auto_mode
+    icon: "mdi:hvac"
     sensor_datapoint: AUTOMODE
-
-number:
+  - id: !extend sw_version
+    name: "Thermostat SW Version"
+    src_address: ${thermostat_address}
   - platform: econet
-    name: "Dehumidification Setting Control"
-    id: dehumidification_setting_control
-    number_datapoint: DHUMSETP
-    min_value: 10
-    max_value: 80
-    step: 1
-    mode: "slider"
-    icon: "mdi:air-humidifier-off"
+    name: "WiFi SW Version"
+    id: wifi_sw_version
+    sensor_datapoint: SW_VERSN
+    src_address: ${wifi_module_address}
+    request_mod: none
+    icon: "mdi:information-box"
+    entity_category: "diagnostic"
 
 switch:
   - platform: econet

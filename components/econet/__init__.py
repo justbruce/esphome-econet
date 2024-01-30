@@ -48,7 +48,7 @@ def assign_declare_id(value):
 
 
 def validate_request_mod_range(value):
-    return cv.int_range(min=0, max=7)(value)
+    return cv.int_range(min=0, max=15)(value)
 
 
 def request_mod(value):
@@ -86,6 +86,7 @@ CONFIG_SCHEMA = (
                     ),
                     cv.Required(CONF_SENSOR_DATAPOINT): cv.string,
                     cv.Optional(CONF_REQUEST_MOD, default="none"): request_mod,
+                    cv.Optional(CONF_REQUEST_ONCE, default=False): cv.boolean,
                     cv.Optional(CONF_DATAPOINT_TYPE, default=DPTYPE_RAW): cv.one_of(
                         *DATAPOINT_TRIGGERS, lower=True
                     ),
@@ -146,6 +147,7 @@ async def to_code(config):
             var,
             conf[CONF_SENSOR_DATAPOINT],
             conf[CONF_REQUEST_MOD],
+            conf[CONF_REQUEST_ONCE],
             conf[CONF_SRC_ADDRESS],
         )
         await automation.build_automation(

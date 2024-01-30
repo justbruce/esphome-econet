@@ -2,7 +2,6 @@
 name: Build Firmware
 
 on:
-  pull_request:
   workflow_call:
     inputs:
       upload-artifacts:
@@ -10,10 +9,14 @@ on:
         required: false
         default: false
         description: "Set to true to have this workflow upload resulting firmware artifacts."
-  workflow_dispatch:
+      force-verbose-logging:
+        type: boolean
+        required: false
+        default: false
+        description: "Set to true to have this workflow force verbose logging, useful for catching build failures in logging code."
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -22,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [esp32, esp8266]
+        platform: [esp32, esp32s3, esp8266]
         appliance:
           - name: electric_tank_water_heater
             shorthand: etwh
@@ -36,9 +39,9 @@ jobs:
             shorthand: tlwh
       fail-fast: true
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4
       - name: Force Manifest to Build Local Code
-        uses: mikefarah/yq@v4.40.5
+        uses: mikefarah/yq@v4
         with:
           cmd: >
             yq -P -i
@@ -46,6 +49,16 @@ jobs:
               .substitutions.external_components_source = "../components" |
               .packages.econet = "../econet_${{ matrix.appliance.name }}.yaml" |
               .packages.econet   tag = "!include"
+            '
+            build-yaml/econet-${{ matrix.appliance.shorthand }}-${{ matrix.platform }}.yaml
+      - name: Force Verbose Logging
+        if: ${{ inputs.force-verbose-logging }}
+        uses: mikefarah/yq@v4
+        with:
+          cmd: >
+            yq -P -i
+            '
+              .substitutions.logger_level = "VERY_VERBOSE"
             '
             build-yaml/econet-${{ matrix.appliance.shorthand }}-${{ matrix.platform }}.yaml
       - name: Build Firmware
@@ -60,7 +73,7 @@ jobs:
           mv ${{ steps.esphome-build.outputs.name }} output/
       - name: Upload artifact
         if: ${{ inputs.upload-artifacts }}
-        uses: actions/upload-artifact@v4.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: econet-${{ matrix.appliance.shorthand }}-${{ matrix.platform }}
           path: output
