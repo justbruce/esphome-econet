@@ -103,10 +103,12 @@ sensor:
     accuracy_decimals: 0
     icon: "mdi:alert"
     state_class: "measurement"
+    device_id: thermostat_wall
   - platform: wifi_signal
     name: "WiFi Signal Strength"
     id: wifi_signal_sensor
     entity_category: "diagnostic"
+    device_id: thermostat_wall
 text_sensor:
   - platform: econet
     name: "Alarm 1"
@@ -115,6 +117,7 @@ text_sensor:
     request_mod: 1
     icon: "mdi:alert"
     entity_category: "diagnostic"
+    device_id: thermostat_wall
   - platform: econet
     name: "Alarm 2"
     id: alarm_2
@@ -122,6 +125,7 @@ text_sensor:
     request_mod: 1
     icon: "mdi:alert"
     entity_category: "diagnostic"
+    device_id: thermostat_wall
   - platform: econet
     name: "Alarm 3"
     id: alarm_3
@@ -136,6 +140,7 @@ text_sensor:
     request_mod: 1
     icon: "mdi:alert"
     entity_category: "diagnostic"
+    device_id: thermostat_wall
   - platform: econet
     name: "Alarm History 1"
     id: alarm_history_1
@@ -143,6 +148,7 @@ text_sensor:
     request_mod: 2
     icon: "mdi:alert"
     entity_category: "diagnostic"
+    device_id: thermostat_wall
   - platform: econet
     name: "Alarm History 2"
     id: alarm_history_2
@@ -150,6 +156,7 @@ text_sensor:
     request_mod: 2
     icon: "mdi:alert"
     entity_category: "diagnostic"
+    device_id: thermostat_wall
   - platform: econet
     name: "Software Version Number"
     id: sw_version
@@ -158,6 +165,7 @@ text_sensor:
     request_once: true
     icon: "mdi:information-box"
     entity_category: "diagnostic"
+    device_id: thermostat_wall
 switch:
   - platform: econet
     name: "Beep On Alarm"
@@ -166,6 +174,7 @@ switch:
     request_mod: 4
     icon: "mdi:alarm-note"
     entity_category: "config"
+    device_id: thermostat_wall
   - platform: econet
     name: "Screen Adjustment Lock"
     id: screen_lock
@@ -173,6 +182,7 @@ switch:
     request_mod: 4
     icon: "mdi:gesture-tap-button"
     entity_category: "config"
+    device_id: thermostat_wall
   - platform: econet
     name: "Screen Unit in °C"
     id: display_unit
@@ -180,21 +190,25 @@ switch:
     request_mod: 4
     icon: "mdi:temperature-celsius"
     entity_category: "config"
+    device_id: thermostat_wall
   - platform: econet
     id: resetdev
     switch_datapoint: RESETDEV
     request_mod: none
     internal: true
+    device_id: thermostat_wall
   - platform: econet
     id: alreset
     switch_datapoint: ALRESET
     request_mod: none
     internal: true
+    device_id: thermostat_wall
   - platform: econet
     id: alhisclr
     switch_datapoint: ALHISCLR
     request_mod: none
     internal: true
+    device_id: thermostat_wall
 button:
   - platform: restart
     name: "Restart ESP"
