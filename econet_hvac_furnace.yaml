@@ -97,6 +97,7 @@ sensor:
     request_mod: none
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: econet
     name: "Return Air Temperature"
     id: return_air_temperature
@@ -109,6 +110,7 @@ sensor:
     request_mod: none
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Outdoor Air Temperature"
     id: outdoor_air_temperature
@@ -120,6 +122,7 @@ sensor:
     disabled_by_default: true
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Flame Sensor"
     id: flame_sensor
@@ -131,6 +134,7 @@ sensor:
     filters:
       - delta: 0.09
       - multiply: .001  # Convert from uA to mA
+    device_id: furnace_unit
   - platform: econet
     name: "Furnace AFUE"
     id: furnace_afue
@@ -145,6 +149,7 @@ sensor:
       - lambda: |-  # Some furnaces seem to report waste rather than efficiency; this normalizes things to traditional AFUE
           if (x < 50) return 100-x;
           return x;
+    device_id: furnace_unit
   - platform: econet
     name: "Furnace High Heat BTU Output"
     id: furnace_hh_btus
@@ -153,6 +158,7 @@ sensor:
     unit_of_measurement: "btu/h"
     icon: "mdi:gas-burner"
     request_once: true
+    device_id: furnace_unit
   - platform: econet
     name: "Furnace Low Heat BTU Output"
     id: furnace_lh_btus
@@ -161,6 +167,7 @@ sensor:
     unit_of_measurement: "btu/h"
     icon: "mdi:gas-burner"
     request_once: true
+    device_id: furnace_unit
   - platform: template
     name: "Two Week Cycles - Low Heat"
     id: low_heat_2week_cycles
@@ -170,6 +177,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Two Week Cycles - High Heat"
     id: high_heat_2week_cycles
@@ -179,6 +187,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Two Week Cycles - Blower"
     id: blower_2week_cycles
@@ -188,6 +197,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Two Week Cycles - Powered"
     id: powered_2week_cycles
@@ -197,6 +207,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Two Week Hours - Low Heat"
     unit_of_measurement: "h"
@@ -207,6 +218,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Two Week Hours - High Heat"
     unit_of_measurement: "h"
@@ -217,6 +229,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Two Week Hours - Blower"
     unit_of_measurement: "h"
@@ -227,6 +240,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Lifetime Cycles - Low Heat"
     id: low_heat_lifetime_cycles
@@ -236,6 +250,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Lifetime Cycles - High Heat"
     id: high_heat_lifetime_cycles
@@ -245,6 +260,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Lifetime Cycles - Blower"
     id: blower_lifetime_cycles
@@ -254,6 +270,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Lifetime Cycles - Powered"
     id: powered_lifetime_cycles
@@ -263,6 +280,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Lifetime Hours - Low Heat"
     unit_of_measurement: "h"
@@ -273,6 +291,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Lifetime Hours - High Heat"
     unit_of_measurement: "h"
@@ -283,6 +302,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Lifetime Hours - Blower"
     unit_of_measurement: "h"
@@ -293,6 +313,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Lifetime Days - Powered"
     unit_of_measurement: "d"
@@ -303,6 +324,7 @@ sensor:
     accuracy_decimals: 0
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Instant BTU Output"
     id: instant_btu_output
@@ -312,6 +334,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Instant BTU Usage"
     id: instant_btu_usage
@@ -321,6 +344,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Instant Gas Usage"
     id: gas_usage_m3_h
@@ -328,6 +352,7 @@ sensor:
     icon: "mdi:meter-gas"
     state_class: "measurement"
     accuracy_decimals: 3
+    device_id: furnace_unit
   - platform: integration
     name: "Total Daily Gas"
     sensor: gas_usage_m3_h
@@ -344,6 +369,7 @@ sensor:
     state_class: "total_increasing"
     device_class: energy
     unit_of_measurement: "kWh"
+    device_id: furnace_unit
   - platform: template
     name: "Heating Capacity"
     id: heat_capacity
@@ -353,6 +379,7 @@ sensor:
     icon: "mdi:gas-burner"
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Heating Stage"
     id: heat_stage
@@ -362,6 +389,7 @@ sensor:
     icon: "mdi:gas-burner"
     filters:
       - delta: 0.9
+    device_id: furnace_unit
   - platform: template
     name: "Compressor Stage"
     id: compressor_stage
@@ -371,6 +399,7 @@ sensor:
     icon: "mdi:sun-snowflake-variant"
     filters:
       - delta: 0.9
+    device_id: outdoor_unit
 
 text_sensor:
   - platform: template
@@ -378,22 +407,26 @@ text_sensor:
     id: hw_model_num
     icon: "mdi:information-box"
     entity_category: "diagnostic"
+    device_id: furnace_unit
   - platform: template
     name: "Furnace Serial Number"
     id: hw_serial_num
     icon: "mdi:information-box"
     entity_category: "diagnostic"
+    device_id: furnace_unit
   - platform: template
     name: "Furnace SW Version"
     id: furnace_sw
     icon: "mdi:information-box"
     entity_category: "diagnostic"
+    device_id: furnace_unit
   - platform: template
     name: "Furnace SW Version 2"
     id: furnace_sw2
     icon: "mdi:information-box"
     entity_category: "diagnostic"
     disabled_by_default: true
+    device_id: furnace_unit
 
 interval:
   - interval: 5s
