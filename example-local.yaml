@@ -32,6 +32,21 @@ packages:  # Change this file to the correct one(s) for your device
   # econet-zone3-bypass: !include hvac-zone-yaml/econet_hvac_zone3_electronicbypass.yaml
   # zones 4, 5, 6 not yet supported.  only zone6 as bypass is supported.  if you have these zones, please file an issue
   # econet-zone6-bypass: !include hvac-zone-yaml/econet_hvac_zone6_electronicbypass.yaml
+  
+# Define devices.  Uncomment for each component present in your system
+  devices:
+    - id: thermostat_wall
+      name: "Thermostat Data"
+#    - id: zoning_control_unit
+#     name: "Zone Control Data/Sensors"
+#    - id: air_handler
+#     name: "Air Handler Data/Sensors"
+#    - id: outdoor_unit
+#    name: "ODU Data/Sensors"      
+#    - id: furnace_unit
+#     name: "Furnace Data/Sensors"
+#    - id: water_heater
+#     name: "Water Heater Data/Sensors"
 
 wifi:
   ssid: !secret wifi_ssid
