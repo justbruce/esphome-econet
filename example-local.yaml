@@ -47,6 +47,9 @@ packages:  # Change this file to the correct one(s) for your device
 #     name: "Furnace Data/Sensors"
 #    - id: water_heater
 #     name: "Water Heater Data/Sensors"
+#    - id: recovery_ventilator
+#     name: "Recovery Ventilator Data/Sensors"
+
 
 wifi:
   ssid: !secret wifi_ssid
